@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programmer's Flowers - Pro Edition</title>
+    <style>
+        /* === 1. RESET & VARIABLES === */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg-color: #131b21;
+            --stem-color: #52b788;
+            --leaf-color: #2d6a4f;
+            --petal-primary: #f4978e;
+            --petal-secondary: #fbc4ab;
+            --bud-color: #ffb703;
+            --glow-white: #ffffff;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .container {
+            width: 50%;
+            margin: 0 auto;
+            height: 90vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .svg-flower-frame {
+            height: 90vh;
+            width: 100%;
+            filter: drop-shadow(0 0 12px rgba(82, 183, 136, 0.25));
+        }
+
+        /* === 2. ADVANCED CSS NESTING (Видео дээрх бүтэцтэй яг адил) === */
+        #footer_group_1 {
+            
+            /* Иш зурагдах хөдөлгөөн */
+            [id="BaseGroup"] path {
+                fill: none;
+                stroke: var(--stem-color);
+                stroke-width: 4.5;
+                stroke-linecap: round;
+                stroke-linejoin: round;
+                stroke-dasharray: 1500;
+                stroke-dashoffset: 1500;
+                animation: drawPath 3.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            }
+
+            /* Дээд талын нумрах чимэглэл */
+            [id="Flourish"] {
+                fill: none;
+                stroke: var(--stem-color);
+                stroke-width: 3.5;
+                stroke-linecap: round;
+                stroke-dasharray: 500;
+                stroke-dashoffset: 500;
+                animation: drawPath 1.8s cubic-bezier(0.4, 0, 0.2, 1) 0.6s forwards;
+            }
+
+            /* Навчнууд гарч ирэх */
+            [id="LeafGroup"] path {
+                fill: var(--leaf-color);
+                opacity: 0;
+                transform-origin: center;
+                transform: scale(0);
+                animation: scaleIn 1.1s cubic-bezier(0.34, 1.56, 0.64, 1) 2.4s forwards;
+            }
+
+            /* Нахианууд гарч ирэх */
+            [id="BudGroup"] circle {
+                fill: var(--bud-color);
+                opacity: 0;
+                transform-origin: center;
+                transform: scale(0);
+                animation: scaleIn 0.9s cubic-bezier(0.175, 0.885, 0.32, 1.275) 2.7s forwards;
+            }
+
+            /* Цэцэг дэлгэрэх */
+            [id="PinkFlowerGroup"] {
+                transform-origin: center;
+                transform: scale(0) rotate(-20deg);
+                opacity: 0;
+                animation: bloomFlower 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) 2.9s forwards;
+            }
+
+            /* Гялалзах цэгүүд */
+            [id="Dots"] circle {
+                fill: var(--glow-white);
+                opacity: 0;
+                animation: fadeInDots 1s ease 3.6s forwards, pulseGlow 2s ease-in-out infinite alternate;
+            }
+        }
+
+        /* === 3. KEYFRAME ANIMATIONS === */
+        @keyframes drawPath {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        @keyframes scaleIn {
+            0% {
+                opacity: 0;
+                transform: scale(0);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes bloomFlower {
+            0% {
+                opacity: 0;
+                transform: scale(0) rotate(-20deg);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
+        @keyframes fadeInDots {
+            to {
+                opacity: 0.85;
+            }
+        }
+
+        @keyframes pulseGlow {
+            0% {
+                transform: scale(0.85);
+                opacity: 0.6;
+            }
+            100% {
+                transform: scale(1.25);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <svg class="svg-flower-frame" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
+            <g id="footer_group_1">
+                <!-- Base Stem Group -->
+                <g id="BaseGroup">
+                    <path d="M400 720 C400 580, 330 430, 220 340 C170 295, 120 275, 95 275" />
+                    <path d="M400 720 C400 580, 470 430, 580 340 C630 295, 680 275, 705 275" />
+                </g>
+
+                <!-- Flourish / Arched Top Stem -->
+                <path id="Flourish" d="M335 195 C370 230, 430 230, 465 195" />
+
+                <!-- Leaf Group -->
+                <g id="LeafGroup">
+                    <path d="M260 420 Q210 395, 235 365 Q270 390, 260 420" />
+                    <path d="M320 510 Q270 485, 295 455 Q330 480, 320 510" />
+                    <path d="M540 420 Q590 395, 565 365 Q530 390, 540 420" />
+                    <path d="M480 510 Q530 485, 505 455 Q470 480, 480 510" />
+                </g>
+
+                <!-- Bud Group -->
+                <g id="BudGroup">
+                    <circle cx="95" cy="275" r="7.5" />
+                    <circle cx="705" cy="275" r="7.5" />
+                </g>
+
+                <!-- Pink Flower Group -->
+                <g id="PinkFlowerGroup">
+                    <!-- Left Flower -->
+                    <g transform="translate(95, 275)">
+                        <circle cx="0" cy="0" r="16" fill="var(--petal-primary)" />
+                        <circle cx="-13" cy="-11" r="13" fill="var(--petal-secondary)" />
+                        <circle cx="13" cy="-11" r="13" fill="var(--petal-secondary)" />
+                        <circle cx="-13" cy="11" r="13" fill="var(--petal-secondary)" />
+                        <circle cx="13" cy="11" r="13" fill="var(--petal-secondary)" />
+                        <circle cx="0" cy="0" r="6" fill="#ffffff" />
+                    </g>
+                    <!-- Right Flower -->
+                    <g transform="translate(705, 275)">
+                        <circle cx="0" cy="0" r="16" fill="var(--petal-primary)" />
+                        <circle cx="-13" cy="-11" r="13" fill="var(--petal-secondary)" />
+                        <circle cx="13" cy="-11" r="13" fill="var(--petal-secondary)" />
+                        <circle cx="-13" cy="11" r="13" fill="var(--petal-secondary)" />
+                        <circle cx="13" cy="11" r="13" fill="var(--petal-secondary)" />
+                        <circle cx="0" cy="0" r="6" fill="#ffffff" />
+                    </g>
+                </g>
+
+                <!-- Sparkle Dots -->
+                <g id="Dots">
+                    <circle cx="400" cy="265" r="3.5" />
+                    <circle cx="370" cy="300" r="2.5" />
+                    <circle cx="430" cy="300" r="2.5" />
+                </g>
+            </g>
+        </svg>
+    </div>
+
+    <script>
+        /* === 4. PRO-LEVEL DYNAMIC PATH CALCULATOR === */
+        document.addEventListener("DOMContentLoaded", () => {
+            const paths = document.querySelectorAll('#BaseGroup path, #Flourish');
+            paths.forEach(path => {
+                const totalLength = path.getTotalLength();
+                path.style.strokeDasharray = totalLength;
+                path.style.strokeDashoffset = totalLength;
+            });
+        });
+    </script>
+</body>
+</html>
